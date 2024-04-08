@@ -44,6 +44,12 @@
       --radius: 0.5rem;
     }
 
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
     .dark {
       --background: 222.2 84% 4.9%;
       --foreground: 210 40% 98%;
@@ -72,14 +78,5 @@
       --border: 217.2 32.6% 17.5%;
       --input: 217.2 32.6% 17.5%;
       --ring: 212.7 26.8% 83.9%;
-    }
-  }
-
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
     }
   }
