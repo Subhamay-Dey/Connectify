@@ -22,7 +22,6 @@ const Navbar = () => {
         <SignedIn>
           <UserButton/>
         </SignedIn>
-        {/* Clerk - User Managament */}
         <MobileNav/>
       </div>
     </nav>
