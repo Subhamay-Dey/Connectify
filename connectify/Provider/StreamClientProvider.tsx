@@ -34,7 +34,7 @@ import Loader from '@/components/Loader';
     
     return (
       <StreamVideo client={videoClient}>
-        
+        {children}
       </StreamVideo>
     );
   };
