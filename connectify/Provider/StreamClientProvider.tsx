@@ -1,6 +1,8 @@
 import { useUser } from '@clerk/nextjs';
 import { StreamCall, StreamVideo, StreamVideoClient, User } from '@stream-io/video-react-sdk';
 import { ReactNode, useEffect, useState } from 'react';
+import { tokenProvider } from '../actions/stream.actions';
+import Loader from '@/components/Loader';
   
   const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
   
@@ -8,11 +10,11 @@ import { ReactNode, useEffect, useState } from 'react';
 
     const [videoClient, setVideoClient] = useState<StreamVideoClient>();
 
-    const {user, isLoaded} = useUser();
+    const {user, isLoaded } = useUser();
 
     useEffect(() => {
       if(!isLoaded || !user) return;
-      if(!apiKey) throw new Error('Stream API key missing')
+      if(!apiKey) throw new Error('Stream API key missing');
 
       const client = new StreamVideoClient({
         apiKey,
@@ -21,11 +23,15 @@ import { ReactNode, useEffect, useState } from 'react';
           name: user?.username || user?.id,
           image: user?.imageUrl,
         },
-        tokenProvider
+        tokenProvider,
       })
-    }, [user, isLoaded]);
-    
 
+      setVideoClient(client);
+
+    }, [user, isLoaded]);
+
+    if(!videoClient) return <Loader/>
+    
     return (
       <StreamVideo client={videoClient}>
         
