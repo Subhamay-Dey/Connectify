@@ -7,6 +7,7 @@ import MeetingModal from './MeetingModal'
 import { useUser } from '@clerk/nextjs'
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk'
 import { useToast } from "@/components/ui/use-toast"
+import { Input } from './ui/input'
 
 const MeetingTypeList = () => {
 
@@ -18,7 +19,7 @@ const MeetingTypeList = () => {
 
     const {user} = useUser();
     const client = useStreamVideoClient();
-    const [values, setvalues] = useState({
+    const [values, setValues] = useState({
         dateTime: new Date(),
         description: '',
         link: ''
@@ -106,6 +107,21 @@ const MeetingTypeList = () => {
             buttonText="Start Meeting"
             handleClick={createMeeting}
         />
+
+    <MeetingModal
+        isOpen={meetingState === 'isJoiningMeeting'}
+        onClose={() => setMeetingState(undefined)}
+        title="Type the link here"
+        className="text-center"
+        buttonText="Join Meeting"
+        handleClick={() => router.push(values.link)}
+      >
+        <Input
+          placeholder="Meeting link"
+          onChange={(e) => setValues({ ...values, link: e.target.value })}
+          className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
+        />
+      </MeetingModal>
 
     </section>
   )
